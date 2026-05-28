@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import './index.css';
 import NetworkBackground from './NetworkBackground';
 import promanageImg from './assets/promanage.png';
-import { FaPhp, FaLaravel, FaReact, FaVuejs, FaJs, FaGitAlt, FaBootstrap, FaHtml5, FaWordpress, FaJira, FaServer, FaLink, FaCode, FaCloud, FaUsers, FaMapMarkerAlt, FaExternalLinkAlt, FaLinkedin, FaGraduationCap, FaLaptopCode, FaCogs, FaEnvelope, FaPhoneAlt, FaPaperPlane, FaCheckCircle, FaBriefcase, FaArrowRight, FaWhatsapp } from 'react-icons/fa';
+import { FaPhp, FaLaravel, FaReact, FaVuejs, FaJs, FaGitAlt, FaBootstrap, FaHtml5, FaWordpress, FaJira, FaServer, FaLink, FaCode, FaCloud, FaUsers, FaMapMarkerAlt, FaExternalLinkAlt, FaLinkedin, FaGraduationCap, FaLaptopCode, FaCogs, FaEnvelope, FaPhoneAlt, FaPaperPlane, FaCheckCircle, FaBriefcase, FaArrowRight, FaWhatsapp, FaBuilding } from 'react-icons/fa';
 import { SiMysql, SiElasticsearch, SiVercel, SiPostman } from 'react-icons/si';
 
 function App() {
@@ -535,8 +535,8 @@ function App() {
 <section id="project">
   <div className="reveal" style={{"marginBottom":"3rem"}}>
     <div className="section-label">Portfolio</div>
-    <h2 className="section-title">Featured Project</h2>
-    <p className="section-sub">A complete full-stack application demonstrating decoupled architecture, secure APIs, and cloud deployment.</p>
+    <h2 className="section-title">Featured Projects</h2>
+    <p className="section-sub">A showcase of full-stack applications, enterprise tools, and platforms I've built.</p>
   </div>
 
   <div className="project-card reveal">
@@ -592,6 +592,51 @@ function App() {
       {/* Floating badges */}
       <div className="pv-float pv-float-1" style={{display: 'flex', alignItems: 'center', gap: '6px'}}><FaReact style={{color: '#61DAFB', fontSize: '1.2rem'}} /> React SPA</div>
       <div className="pv-float pv-float-2" style={{display: 'flex', alignItems: 'center', gap: '6px'}}><FaLaravel style={{color: '#FF2D20', fontSize: '1.2rem'}} /> Laravel API</div>
+    </div>
+  </div>
+
+  {/* Other Projects */}
+  <div className="other-projects reveal">
+    {/* Adventus Portals */}
+    <div className="op-card">
+      <div className="op-icon" style={{background: '#F0FDF4', color: '#16A34A'}}>
+        <FaBuilding />
+      </div>
+      <h3 className="op-title">Adventus Portals & Inventory</h3>
+      <p className="op-desc">A suite of platforms for global immigration and recruitment, featuring recruiter/backoffice portals and an inventory module.</p>
+      <div className="op-stack">
+        <span className="stack-tag">Laravel</span>
+        <span className="stack-tag">Vue.js</span>
+        <span className="stack-tag">Elasticsearch</span>
+      </div>
+    </div>
+
+    {/* HRM & CMT Tools */}
+    <div className="op-card">
+      <div className="op-icon" style={{background: '#FFF7ED', color: '#EA580C'}}>
+        <FaCogs />
+      </div>
+      <h3 className="op-title">HRM & Logistics Systems</h3>
+      <p className="op-desc">Internal enterprise tools streamlining HR attendance operations and managing truck/agent logistics with real-time notifications.</p>
+      <div className="op-stack">
+        <span className="stack-tag">PHP</span>
+        <span className="stack-tag">Laravel</span>
+        <span className="stack-tag">JavaScript</span>
+      </div>
+    </div>
+
+    {/* Ticket Booking System */}
+    <div className="op-card">
+      <div className="op-icon" style={{background: '#F3E8FF', color: '#9333EA'}}>
+        <FaCode />
+      </div>
+      <h3 className="op-title">Event Ticket Booking Platform</h3>
+      <p className="op-desc">A BookMyShow-style ticketing platform for 'Dandiya Night' events, handling seat selections, payments, and QR digital tickets.</p>
+      <div className="op-stack">
+        <span className="stack-tag">React.js</span>
+        <span className="stack-tag">Laravel</span>
+        <span className="stack-tag">Payment Integration</span>
+      </div>
     </div>
   </div>
 </section>
