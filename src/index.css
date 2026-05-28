@@ -22,7 +22,6 @@
     --shadow-hover: 0 20px 40px rgba(26,86,219,.08), 0 8px 16px rgba(26,86,219,.04);
   }
 
-  
   html { scroll-behavior: smooth; font-size: 16px; }
 
   body {
@@ -745,17 +744,56 @@
     background: var(--accent); color: #fff;
     border: none; border-radius: 0;
     font-family: var(--ff-body); font-size: .95rem; font-weight: 700;
-    cursor: pointer; transition: background .2s, transform .15s, box-shadow .2s;
+    cursor: pointer; transition: background .2s, transform .15s, box-shadow .2s, opacity .2s;
     box-shadow: 0 4px 16px rgba(26,86,219,.25);
     display: flex; align-items: center; justify-content: center; gap: 8px;
   }
-  .submit-btn:hover { background: var(--accent-mid); transform: translateY(-2px); box-shadow: 0 6px 24px rgba(26,86,219,.3); }
-  .submit-btn:active { transform: translateY(0); }
-  .form-success {
-    display: none; text-align: center; padding: 2rem;
-    color: #16A34A; font-weight: 600; font-size: .95rem;
+  .submit-btn:hover:not(:disabled) { background: var(--accent-mid); transform: translateY(-2px); box-shadow: 0 6px 24px rgba(26,86,219,.3); }
+  .submit-btn:active:not(:disabled) { transform: translateY(0); }
+  .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+  
+  .form-alert {
+    padding: 1rem 1.25rem;
+    border-radius: 0;
+    margin-bottom: 1.5rem;
+    font-size: .9rem; font-weight: 600;
+    display: flex; align-items: center; gap: 8px;
+    animation: fadeDown .3s ease forwards;
   }
-  .form-success .fs-icon { font-size: 2.5rem; margin-bottom: .75rem; display: block; }
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .form-alert.success { background: var(--accent); color: #fff; border: 1px solid var(--accent-mid); box-shadow: 0 4px 12px rgba(26,86,219,.2); }
+  .form-alert.error { background: #FEF2F2; color: #DC2626; border: 1px solid #FECACA; border-radius: 0; }
+
+  .captcha-group {
+    background: var(--bg);
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+  }
+  .captcha-wrap {
+    display: flex; align-items: center; gap: 1rem;
+    margin-top: .5rem;
+  }
+  .captcha-q {
+    font-size: 1.05rem; font-weight: 700; color: var(--ink);
+    letter-spacing: .05em;
+    background: var(--surface); padding: .4rem .8rem;
+    border-radius: 4px; border: 1px dashed var(--accent);
+  }
+  .captcha-wrap input { width: 120px; }
+
+  .spinner {
+    width: 20px; height: 20px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
 
   /* ─── FOOTER ─── */
   footer {

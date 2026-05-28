@@ -9,7 +9,11 @@ function App() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [bttVisible, setBttVisible] = useState(false);
-  const [formState, setFormState] = useState('idle'); // idle, submitted, error
+  // Form States
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState({ text: '', type: '' });
+  const [captchaVal1, setCaptchaVal1] = useState(Math.floor(Math.random() * 10) + 1);
+  const [captchaVal2, setCaptchaVal2] = useState(Math.floor(Math.random() * 10) + 1);
 
   useEffect(() => {
 
@@ -47,17 +51,34 @@ function App() {
   const toggleMobileNav = () => setMobileNavOpen(!mobileNavOpen);
 
   const submitForm = async () => {
+    if (isSubmitting) return;
+
     const fname = document.getElementById('fname').value.trim();
     const lname = document.getElementById('lname').value.trim();
     const email = document.getElementById('femail').value.trim();
     const type = document.getElementById('ftype').value;
     const message = document.getElementById('fmessage').value.trim();
+    const botcheck = document.getElementById('botcheck').checked;
+    const captchaAns = document.getElementById('captcha').value.trim();
+
+    if (botcheck) {
+      return; // honeypot caught a bot
+    }
 
     if (!fname || !email || !message) {
-      setFormState('error');
-      setTimeout(() => setFormState('idle'), 2500);
+      setSubmitMessage({ text: 'Please fill in all required fields.', type: 'error' });
+      setTimeout(() => setSubmitMessage({ text: '', type: '' }), 4000);
       return;
     }
+
+    if (parseInt(captchaAns) !== (captchaVal1 + captchaVal2)) {
+      setSubmitMessage({ text: 'Incorrect human verification answer.', type: 'error' });
+      setTimeout(() => setSubmitMessage({ text: '', type: '' }), 4000);
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitMessage({ text: '', type: '' });
 
     const payload = {
       access_key: "11bfe075-4307-4703-af1f-a92e633fdf05",
@@ -78,16 +99,30 @@ function App() {
       });
 
       if (response.status === 200) {
-        setFormState('submitted');
+        setSubmitMessage({ text: 'Message sent successfully! Thanks for reaching out.', type: 'success' });
+        // Clear form
+        document.getElementById('fname').value = '';
+        document.getElementById('lname').value = '';
+        document.getElementById('femail').value = '';
+        document.getElementById('ftype').value = '';
+        document.getElementById('fmessage').value = '';
+        document.getElementById('captcha').value = '';
+        // Reset captcha
+        setCaptchaVal1(Math.floor(Math.random() * 10) + 1);
+        setCaptchaVal2(Math.floor(Math.random() * 10) + 1);
+        
+        setTimeout(() => setSubmitMessage({ text: '', type: '' }), 6000);
       } else {
-        setFormState('error');
-        setTimeout(() => setFormState('idle'), 2500);
+        setSubmitMessage({ text: 'Something went wrong. Please try again.', type: 'error' });
+        setTimeout(() => setSubmitMessage({ text: '', type: '' }), 4000);
       }
     } catch (err) {
       console.error(err);
-      setFormState('error');
-      setTimeout(() => setFormState('idle'), 2500);
+      setSubmitMessage({ text: 'Network error. Please try again.', type: 'error' });
+      setTimeout(() => setSubmitMessage({ text: '', type: '' }), 4000);
     }
+    
+    setIsSubmitting(false);
   };
 
   const smoothScroll = (e, targetId) => {
@@ -530,7 +565,7 @@ function App() {
         <strong>Demo Login:</strong> admin@example.com &nbsp;/&nbsp; password
       </div>
       <div className="proj-actions">
-        <a href="https://pro-manage-client-gamma.vercel.app" target="_blank" className="btn-primary">
+        <a href="https://pro-manage-client-gamma.vercel.app/invitations/accept?token=rPhoKOicmLBJ6q5ZVKDEW0nurwWoUj4qKUAo8ToG" target="_blank" className="btn-primary">
           <FaExternalLinkAlt style={{ fontSize: '15px' }} />
           View Live Demo
         </a>
@@ -636,10 +671,19 @@ function App() {
       <div className="cf-title">Send a Message</div>
       <p className="cf-sub">Fill out the form and I'll get back to you within 24 hours.</p>
 
-      <div id="contactForm" style={{ display: formState === 'submitted' ? 'none' : 'block' }}>
+      {submitMessage.text && (
+        <div className={`form-alert ${submitMessage.type}`}>
+          {submitMessage.type === 'success' ? <FaCheckCircle style={{ fontSize: '1.2rem' }} /> : null}
+          {submitMessage.text}
+        </div>
+      )}
+
+      <div id="contactForm">
+        <input type="checkbox" name="botcheck" id="botcheck" style={{ display: 'none' }} />
+        
         <div className="form-row">
           <div className="form-group">
-            <label>First Name</label>
+            <label>First Name *</label>
             <input type="text" id="fname" placeholder="John" />
           </div>
           <div className="form-group">
@@ -648,7 +692,7 @@ function App() {
           </div>
         </div>
         <div className="form-group">
-          <label>Email Address</label>
+          <label>Email Address *</label>
           <input type="email" id="femail" placeholder="john@company.com" />
         </div>
         <div className="form-group">
@@ -662,19 +706,28 @@ function App() {
           </select>
         </div>
         <div className="form-group">
-          <label>Message</label>
+          <label>Message *</label>
           <textarea id="fmessage" placeholder="Tell me about your project or opportunity…"></textarea>
         </div>
-        <button className="submit-btn" onClick={() => {submitForm()}}>
-          <FaPaperPlane style={{ fontSize: '16px' }} />
-          Send Message
-        </button>
-      </div>
+        
+        <div className="form-group captcha-group">
+          <label>Human Verification *</label>
+          <div className="captcha-wrap">
+            <span className="captcha-q">What is {captchaVal1} + {captchaVal2}?</span>
+            <input type="number" id="captcha" placeholder="Answer" />
+          </div>
+        </div>
 
-      <div className="form-success" id="formSuccess" style={{ display: formState === 'submitted' ? 'block' : 'none' }}>
-        <span className="fs-icon" style={{ fontSize: '2rem', marginBottom: '1rem', display: 'block' }}><FaCheckCircle style={{ color: '#16A34A' }} /></span>
-        <strong>Message sent!</strong><br />
-        Thanks for reaching out. I'll get back to you within 24 hours.
+        <button className="submit-btn" onClick={() => {submitForm()}} disabled={isSubmitting}>
+          {isSubmitting ? (
+             <span className="spinner"></span>
+          ) : (
+            <>
+              <FaPaperPlane style={{ fontSize: '16px' }} />
+              Send Message
+            </>
+          )}
+        </button>
       </div>
     </div>
   </div>
@@ -687,7 +740,7 @@ function App() {
   <div className="footer-links">
     <a href="mailto:sk.chd03@gmail.com">Email</a>
     <a href="https://www.linkedin.com/in/sumit-choudhary-142358192/" target="_blank">LinkedIn</a>
-    <a href="https://pro-manage-client-gamma.vercel.app" target="_blank">Live Project</a>
+    <a href="https://pro-manage-client-gamma.vercel.app/invitations/accept?token=rPhoKOicmLBJ6q5ZVKDEW0nurwWoUj4qKUAo8ToG" target="_blank">Live Project</a>
   </div>
 </footer>
 
