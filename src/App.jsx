@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import './index.css';
 import NetworkBackground from './NetworkBackground';
 import promanageImg from './assets/promanage.png';
-import { FaPhp, FaLaravel, FaReact, FaVuejs, FaJs, FaGitAlt, FaBootstrap, FaHtml5, FaWordpress, FaJira, FaServer, FaLink, FaCode, FaCloud, FaUsers, FaMapMarkerAlt, FaExternalLinkAlt, FaLinkedin, FaGraduationCap, FaLaptopCode, FaCogs, FaEnvelope, FaPhoneAlt, FaPaperPlane, FaCheckCircle, FaBriefcase, FaArrowRight, FaWhatsapp, FaBuilding } from 'react-icons/fa';
+import { FaPhp, FaLaravel, FaReact, FaVuejs, FaJs, FaGitAlt, FaBootstrap, FaHtml5, FaWordpress, FaJira, FaServer, FaLink, FaCode, FaCloud, FaUsers, FaMapMarkerAlt, FaExternalLinkAlt, FaLinkedin, FaGraduationCap, FaLaptopCode, FaCogs, FaEnvelope, FaPhoneAlt, FaPaperPlane, FaCheckCircle, FaBriefcase, FaArrowRight, FaWhatsapp, FaBuilding, FaChartLine } from 'react-icons/fa';
 import { SiMysql, SiElasticsearch, SiVercel, SiPostman } from 'react-icons/si';
 
 function App() {
@@ -499,7 +499,7 @@ function App() {
             <span className="tl-date">Oct 2021 – Feb 2025</span>
           </div>
           <ul className="tl-desc">
-            <li><span><strong>Core API Development:</strong> Built and maintained RESTful APIs using Laravel for Upstox.com, focusing on data security and efficiency.</span></li>
+            <li><span><strong>Upstox.com Development:</strong> Built and maintained the real-time stock listing and market watch pages, including robust RESTful APIs using Laravel for high-performance data rendering.</span></li>
             <li><span><strong>Enterprise Systems:</strong> Developed features for internal HRM and CRM tools supporting tracking and sales operations.</span></li>
             <li><span><strong>Database Management:</strong> Designed and optimized MySQL queries for high-traffic, data-intensive features.</span></li>
           </ul>
@@ -565,7 +565,7 @@ function App() {
         <strong>Demo Login:</strong> admin@example.com &nbsp;/&nbsp; password
       </div>
       <div className="proj-actions">
-        <a href="https://pro-manage-client-gamma.vercel.app/invitations/accept?token=rPhoKOicmLBJ6q5ZVKDEW0nurwWoUj4qKUAo8ToG" target="_blank" className="btn-primary">
+        <a href="https://promanage.sumitchoudhary.dev/" target="_blank" className="btn-primary">
           <FaExternalLinkAlt style={{ fontSize: '15px' }} />
           View Live Demo
         </a>
@@ -583,7 +583,7 @@ function App() {
           <div className="pv-dot red"></div>
           <div className="pv-dot yellow"></div>
           <div className="pv-dot green"></div>
-          <div className="pv-url">pro-manage-client-gamma.vercel.app</div>
+          <div className="pv-url">promanage.sumitchoudhary.dev</div>
         </div>
         <div className="pv-content" style={{ padding: 0 }}>
           <img src={promanageImg} alt="ProManage Dashboard" style={{ width: '100%', height: 'auto', objectFit: 'cover', display: 'block' }} />
@@ -625,17 +625,18 @@ function App() {
       </div>
     </div>
 
-    {/* Ticket Booking System */}
+    {/* Upstox Listing Page */}
     <div className="op-card">
-      <div className="op-icon" style={{background: '#F3E8FF', color: '#9333EA'}}>
-        <FaCode />
+      <div className="op-icon" style={{background: '#E0F2FE', color: '#0284C7'}}>
+        <FaChartLine />
       </div>
-      <h3 className="op-title">Event Ticket Booking Platform</h3>
-      <p className="op-desc">A BookMyShow-style ticketing platform for 'Dandiya Night' events, handling seat selections, payments, and QR digital tickets.</p>
+      <h3 className="op-title">Upstox Stock Listing</h3>
+      <p className="op-desc">Developed the stock listing and market watch pages for Upstox.com, focusing on high-performance data rendering and dynamic UI updates.</p>
       <div className="op-stack">
-        <span className="stack-tag">React.js</span>
-        <span className="stack-tag">Laravel</span>
-        <span className="stack-tag">Payment Integration</span>
+        <span className="stack-tag">WordPress</span>
+        <span className="stack-tag">ACF</span>
+        <span className="stack-tag">PHP</span>
+        <span className="stack-tag">JavaScript</span>
       </div>
     </div>
   </div>
@@ -785,7 +786,7 @@ function App() {
   <div className="footer-links">
     <a href="mailto:sk.chd03@gmail.com">Email</a>
     <a href="https://www.linkedin.com/in/sumit-choudhary-142358192/" target="_blank">LinkedIn</a>
-    <a href="https://pro-manage-client-gamma.vercel.app/invitations/accept?token=rPhoKOicmLBJ6q5ZVKDEW0nurwWoUj4qKUAo8ToG" target="_blank">Live Project</a>
+    <a href="https://promanage.sumitchoudhary.dev/" target="_blank">Live Project</a>
   </div>
 </footer>
 
